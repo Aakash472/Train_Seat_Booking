@@ -17,7 +17,7 @@ dotenv.config();
 app.use(express.json());
 app.use(cors(
   {
-      origin: ["http://localhost:3000"],
+      origin: ["https://train-seat-reservations.vercel.app/"],
       methods: ["GET", "POST", "PUT", "DELETE"],
       credentials: true
   }
@@ -61,7 +61,7 @@ async function initializeSeats() {
 initializeSeats();
 
 // User signup
-app.post('/api/signup', async (req, res) => {
+app.post('https://train-seat-reservations.vercel.app/api/signup', async (req, res) => {
   const { username, password } = req.body;
   const hashedPassword = await bcrypt.hash(password, 10);
   try {
@@ -73,7 +73,7 @@ app.post('/api/signup', async (req, res) => {
 });
 
 // User login
-app.post('/api/login', async (req, res) => {
+app.post('https://train-seat-reservations.vercel.app/api/login', async (req, res) => {
   const { username, password } = req.body;
   const user = await User.findOne({ username });
   if (!user) return res.status(400).json({ error: 'Invalid credentials' });
@@ -98,7 +98,7 @@ function authenticateToken(req, res, next) {
 }
 
 // Reserve seats
-app.post('/api/reserve', authenticateToken, async (req, res) => {
+app.post('https://train-seat-reservations.vercel.app/api/reserve', authenticateToken, async (req, res) => {
   const { seatCount } = req.body;
   const userId = req.user.userId;
 
@@ -134,7 +134,7 @@ app.post('/api/reserve', authenticateToken, async (req, res) => {
 });
 
 // Cancel reservation
-app.post('/api/cancel', authenticateToken, async (req, res) => {
+app.post('https://train-seat-reservations.vercel.app/api/cancel', authenticateToken, async (req, res) => {
   const { seatNumbers } = req.body;
   const userId = req.user.userId;
 
@@ -151,13 +151,13 @@ app.post('/api/cancel', authenticateToken, async (req, res) => {
 });
 
 // Reset all seats (admin functionality)
-app.post('/api/reset', async (req, res) => {
+app.post('https://train-seat-reservations.vercel.app/api/reset', async (req, res) => {
   await Seat.updateMany({}, { isBooked: false, bookedBy: null });
   res.json({ message: 'All reservations have been reset' });
 });
 
 // Get all seats
-app.get('/api/seats', async (req, res) => {
+app.get('https://train-seat-reservations.vercel.app/api/seats', async (req, res) => {
   try {
     const seats = await Seat.find(); // Fetch all seats from the database
     res.json(seats);

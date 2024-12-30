@@ -16,7 +16,7 @@ const App = () => {
 
   const fetchSeats = async () => {
     try {
-      const response = await axios.get('http://localhost:5000/api/seats');
+      const response = await axios.get('https://train-seat-booking-server.vercel.app/api/seats');
       setSeats(response.data);
     } catch (error) {
       console.error('Error fetching seats:', error);
@@ -25,7 +25,7 @@ const App = () => {
 
   const handleSignup = async () => {
     try {
-      await axios.post('http://localhost:5000/api/signup', { username, password });
+      await axios.post('https://train-seat-booking-server.vercel.app/api/signup', { username, password });
       alert('Signup successful!');
     } catch (error) {
       alert('Error during signup: ' + error.response.data.error);
@@ -34,7 +34,7 @@ const App = () => {
 
   const handleLogin = async () => {
     try {
-      const response = await axios.post('http://localhost:5000/api/login', { username, password });
+      const response = await axios.post('https://train-seat-booking-server.vercel.app/api/login', { username, password });
       setToken(response.data.token);
       alert('Login successful!');
     } catch (error) {
@@ -45,7 +45,7 @@ const App = () => {
   const handleReserve = async () => {
     try {
       await axios.post(
-        'http://localhost:5000/api/reserve',
+        'https://train-seat-booking-server.vercel.app/api/reserve',
         { seatCount },
         { headers: { Authorization: token } }
       );
@@ -60,7 +60,7 @@ const App = () => {
     const seatNumbers = prompt('Enter seat numbers to cancel (comma-separated)').split(',');
     try {
       await axios.post(
-        'http://localhost:5000/api/cancel',
+        'https://train-seat-booking-server.vercel.app/api/cancel',
         { seatNumbers: seatNumbers.map((s) => parseInt(s)) },
         { headers: { Authorization: token } }
       );
