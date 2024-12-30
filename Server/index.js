@@ -24,7 +24,7 @@ app.use(cors(
 ))
 
 app.get('/', (req, res) => {
-  res.send('This is Backend Server coming from Portfolio')
+  res.send('This is Backend Server coming from Train Seat Booking')
 })
 
 // MongoDB connection
